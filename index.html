@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>🎂 Екатерина Александрова — торты на заказ</title>
+<meta name="description" content="Домашние торты и десерты на заказ. Кондитер с опытом более 4 лет. Самовывоз — Уфимский район.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --card:#FFFFFF;
+  --text:#3A2E2A;
+  --muted:#8B7D76;
+  --line:#EEDFD6;
+  --accent:#E89BB5;
+  --accent2:#F3C97A;
+
+  --shadow:0 16px 34px rgba(0,0,0,.10);
+  --shadowHover:0 22px 50px rgba(0,0,0,.14);
+  --radius:22px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:"Manrope",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  line-height:1.55;
+  background:
+    radial-gradient(900px 600px at 6% 6%, rgba(232,155,181,.18), transparent 65%),
+    radial-gradient(1000px 700px at 96% 14%, rgba(243,201,122,.22), transparent 68%),
+    linear-gradient(180deg,#FFF6EE 0%, #FFF2EA 100%);
+}
+
+/* subtle pastry pattern */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.07;
+  background-size:520px 520px;
+  background-repeat:repeat;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520'%3E%3Cg fill='none' stroke='%23D7A6A6' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M90 160h140'/%3E%3Cpath d='M110 160c0 40 20 70 50 70s50-30 50-70'/%3E%3Cpath d='M340 110l-70 70'/%3E%3Cpath d='M120 430c60-60 140-60 200 0'/%3E%3Cpath d='M350 360h120'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:26px 16px 70px}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:10;
+  background:rgba(255,246,238,.9);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  max-width:1100px;
+  margin:0 auto;
+  padding:12px 16px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:12px;
+}
+.brand b{
+  font-size:16px;
+  font-family:"Playfair Display",Georgia,serif;
+}
+.brand span{font-size:12px;color:var(--muted)}
+.menu{justify-self:center; white-space:nowrap}
+.menu a{
+  font-size:13px;
+  margin:0 6px;
+  padding:6px 14px;
+  border-radius:14px;
+}
+.menu a:hover{background:#F9E6DE}
+
+.header-cta{
+  justify-self:end;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.trust-badge{
+  font-size:12px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+
+/* BUTTONS */
+.btn{
+  padding:13px 20px;
+  border-radius:18px;
+  font-size:14px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform .16s ease, box-shadow .16s ease, opacity .16s ease;
+  box-shadow:0 10px 22px rgba(0,0,0,.12);
+}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:linear-gradient(180deg,#F2AFC6,#E89BB5)}
+.btn.secondary{background:linear-gradient(180deg,#F8DFA0,#F3C97A)}
+.btn.ghost{background:rgba(255,255,255,.7); border:1px solid var(--line); box-shadow:none}
+.btn.small{padding:10px 16px;font-size:13px;border-radius:14px}
+
+/* CARDS */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:24px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(238,223,214,.65);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.card:hover{transform:translateY(-2px); box-shadow:var(--shadowHover)}
+
+/* TYPO */
+h1,h2{
+  font-family:"Playfair Display",Georgia,serif;
+  letter-spacing:-0.2px;
+}
+h1{margin:16px 0 12px;font-size:34px;line-height:1.15}
+h2{margin:0 0 16px;font-size:22px}
+.lead{color:var(--muted); margin:0}
+
+/* HERO LAYOUT (чтобы не было пустоты слева) */
+.hero{
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:20px;
+  grid-template-areas:
+    "heroCard heroImg"
+    "heroAbout heroImg";
+  align-items:start;
+}
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "heroCard"
+      "heroImg"
+      "heroAbout";
+  }
+}
+.hero-card{grid-area:heroCard}
+.hero-img{grid-area:heroImg}
+.hero-about{grid-area:heroAbout}
+
+.kicker{
+  display:inline-block;
+  background:linear-gradient(180deg,#F9E6DE,#F4D6C8);
+  color:#6B3F3F;
+  font-size:12px;
+  padding:7px 14px;
+  border-radius:999px;
+}
+
+.cta{margin-top:20px;display:flex;gap:14px;flex-wrap:wrap}
+
+.hero-img{
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(238,223,214,.65);
+  background:#fff;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.hero-img:hover{transform:translateY(-2px); box-shadow:var(--shadowHover)}
+.hero-img img{
+  width:100%;
+  height:100%;
+  min-height:520px;
+  object-fit:cover;
+  display:block;
+}
+@media(max-width:900px){ .hero-img img{min-height:360px} }
+
+/* ABOUT (внутри hero) */
+.about{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+@media(max-width:900px){.about{grid-template-columns:1fr}}
+.about p{margin:0;color:var(--muted)}
+
+/* SECTIONS */
+section{margin-top:44px}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+@media(max-width:900px){.gallery{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+.photo{
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(238,223,214,.65);
+  background:#fff;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.photo:hover{transform:translateY(-2px); box-shadow:var(--shadowHover)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+.gallery-actions{
+  margin-top:16px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* PRICE */
+.price{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+@media(max-width:900px){.price{grid-template-columns:1fr}}
+.price-item{
+  background:#fff;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(238,223,214,.65);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.price-item:hover{transform:translateY(-2px); box-shadow:var(--shadowHover)}
+.price-item b{display:block;margin-bottom:8px}
+
+/* CONTACTS */
+.contacts{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+@media(max-width:900px){.contacts{grid-template-columns:1fr}}
+.small{font-size:13px;color:var(--muted);line-height:1.45}
+.phone{font-weight:800;font-size:16px}
+
+footer{
+  margin-top:44px;
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* верхняя кнопка "Заказать торт" */
+.header-cta .btn{
+  background: linear-gradient(180deg, #F2AFC6, #E89BB5);
+  color: #3A2E2A;
+  font-weight: 700;
+  box-shadow: 0 10px 26px rgba(232,155,181,.55);
+}
+.header-cta .btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(232,155,181,.65);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <b>🎂 Екатерина Александрова</b><br>
+      <span>Торты на заказ • самовывоз</span>
+    </div>
+
+    <div class="menu">
+      <a href="#about">Обо мне</a>
+      <a href="#gallery">Фото</a>
+      <a href="#price">Цены</a>
+      <a href="#contacts">Контакты</a>
+    </div>
+
+    <div class="header-cta">
+      <span class="trust-badge">⭐ 4+ лет опыта</span>
+      <a class="btn primary small"
+         href="https://chat.whatsapp.com/Iu4CfqEPO7qKraCX9yekTj?mode=hqrc"
+         target="_blank" rel="noopener">
+        Заказать торт
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- HERO + ABOUT -->
+<div class="hero">
+  <div class="card hero-card">
+    <span class="kicker">🎂 Торты и десерты на заказ</span>
+    <h1>Домашние торты<br>с индивидуальным оформлением</h1>
+    <p class="lead">
+      Вкусные, аккуратные и продуманные десерты для ваших событий.<br>
+      Самовывоз: Уфимский район, д. Камышлы
+    </p>
+    <div class="cta">
+      <a class="btn primary"
+         href="https://chat.whatsapp.com/Iu4CfqEPO7qKraCX9yekTj?mode=hqrc"
+         target="_blank" rel="noopener">
+        Написать в WhatsApp
+      </a>
+      <a class="btn secondary" href="tel:+79273226914">Позвонить</a>
+    </div>
+  </div>
+
+  <div class="hero-img">
+    <img src="img/1.jpg" alt="Торт">
+  </div>
+
+  <section id="about" class="hero-about">
+    <h2>О кондитере</h2>
+    <div class="about">
+      <div class="card">
+        <p>
+          Меня зовут <b>Екатерина Александрова</b>.
+          Я повар-кондитер-технолог с профессиональным образованием и опытом
+          в кондитерском деле <b>более 4 лет</b>.
+        </p>
+      </div>
+      <div class="card">
+        <p>
+          В своей работе я уделяю внимание вкусу, качеству ингредиентов и аккуратному оформлению.
+          Каждый заказ — индивидуальный подход и внимание к деталям.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <h2>Фотографии работ</h2>
+  <div class="gallery" id="galleryGrid"></div>
+  <div class="gallery-actions">
+    <button class="btn secondary" id="moreBtn" type="button">Показать ещё</button>
+    <button class="btn ghost" id="collapseBtn" type="button" style="display:none">Свернуть</button>
+  </div>
+</section>
+
+<!-- ✅ ЦЕНЫ (заменено + добавлены описания + иконки) -->
+<section id="price">
+  <h2>Цены</h2>
+  <div class="price">
+
+    <div class="price-item">
+      <b>🎂 Торты — 1100 рублей / кг (с любым оформлением)</b>
+      <p class="small">
+        Молочная девочка; Молочная девочка с клубникой в прослойках; Молочная девочка с бананом в прослойках;
+        Молочная девочка с вишней в прослойках; Красный бархат; Сникерс; Вишня в шоколаде; Медовик;
+        Алладин с изюмом; Алладин с курагой; Шоколадный бархат; Ванильный с йогуртовым кремом.
+      </p>
+    </div>
+
+    <div class="price-item">
+      <b>🍰 Мини-тортики (750–850 г) — 700 рублей (акция, с любым оформлением)</b>
+      <p class="small">
+        Молочная девочка; Молочная девочка с клубникой/бананом/вишней в прослойках; Красный бархат; Медовик;
+        Сникерс; Вишня в шоколаде; Алладин с изюмом; Алладин с курагой; Шоколадный бархат; Ванильный с йогуртовым кремом.
+        Акция продлевается на неопределённое время.
+      </p>
+    </div>
+
+    <div class="price-item">
+      <b>🥄 Трайфлы по акции — 100 рублей / шт</b>
+      <p class="small">
+        Красный бархат с клубничным конфи; Сникерс с соленоватой карамелью и арахисом;
+        Молочная девочка с кусочками персиков; Молочная девочка со смородиновой прослойкой;
+        Медовик со сливочно-творожным кремом и яблочной начинкой; Медовик с творожно-сливочным кремом и малиновым конфи.
+      </p>
+    </div>
+
+    <div class="price-item">
+      <b>🧁 Капкейки по акции — 100 рублей / шт</b>
+      <p class="small">
+        Ванильные с клубничным конфи; Красный бархат со смородиновой начинкой;
+        Красный бархат с клубничным конфи; Сникерс.
+      </p>
+    </div>
+
+    <div class="price-item">
+      <b>🥐 Трубочки (2 вида) — 50 рублей / шт</b>
+      <p class="small">
+        1) со взбитыми сливками; 2) со сливочно-творожным кремом.
+      </p>
+    </div>
+
+    <div class="price-item">
+      <b>🍯 Чак-чак — 1000 рублей / кг</b>
+      <p class="small">Домашний чак-чак.</p>
+    </div>
+
+    <div class="price-item">
+      <b>🍥 Рулеты — 1000 рублей / кг</b>
+      <p class="small">
+        Меренговый с малиной; Меренговый с клубникой; Красный бархат; Красный бархат с клубникой;
+        Шоколадный бархат; Шоколадный бархат с вишней.
+      </p>
+    </div>
+
+  </div>
+
+  <p class="small" style="text-align:center;margin-top:14px">Постоянным клиентам скидки🥰</p>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts">
+  <h2>Контакты</h2>
+  <div class="contacts">
+    <div class="card">
+      <b>Самовывоз</b>
+      <p class="lead" style="margin:10px 0 0">
+        Уфимский район, д. Камышлы,<br>
+        ул. А. Александрова, дом 28
+      </p>
+
+      <p class="small" style="margin:12px 0 0">
+        Телефон:<br>
+        <a class="phone" href="tel:+79273226914">+7 927 322-69-14</a>
+      </p>
+    </div>
+
+    <div class="card">
+      <b>Связаться</b>
+      <p class="small" style="margin:10px 0 14px">
+        Напишите в WhatsApp — отвечу и помогу с выбором.<br>
+        В сообщении укажите дату и примерный вес торта.
+      </p>
+
+      <div class="cta" style="margin-top:0">
+        <a class="btn primary"
+           href="https://chat.whatsapp.com/Iu4CfqEPO7qKraCX9yekTj?mode=hqrc"
+           target="_blank" rel="noopener">
+          Перейти в WhatsApp
+        </a>
+        <a class="btn secondary" href="tel:+79273226914">Позвонить</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 Екатерина Александрова</footer>
+
+</div>
+
+<script>
+  // Галерея: подставь реальное число фото (если не 110)
+  const TOTAL = 110;
+  const INITIAL = 12;
+  const BATCH = 12;
+
+  let shown = 0;
+
+  const grid = document.getElementById('galleryGrid');
+  const moreBtn = document.getElementById('moreBtn');
+  const collapseBtn = document.getElementById('collapseBtn');
+
+  function createItem(i){
+    const wrap = document.createElement('div');
+    wrap.className = 'photo';
+
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.alt = 'Работа ' + i;
+    img.src = `img/${i}.jpg`;
+
+    wrap.appendChild(img);
+    return wrap;
+  }
+
+  function render(count){
+    grid.innerHTML = '';
+    for(let i = 1; i <= count; i++){
+      grid.appendChild(createItem(i));
+    }
+    shown = count;
+
+    collapseBtn.style.display = (shown > INITIAL) ? 'inline-flex' : 'none';
+    moreBtn.style.display = (shown >= TOTAL) ? 'none' : 'inline-flex';
+  }
+
+  function addBatch(){
+    render(Math.min(shown + BATCH, TOTAL));
+  }
+
+  function collapse(){
+    render(INITIAL);
+    document.getElementById('gallery').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  moreBtn.addEventListener('click', addBatch);
+  collapseBtn.addEventListener('click', collapse);
+
+  render(INITIAL);
+</script>
+
+</body>
+</html>
+
+
